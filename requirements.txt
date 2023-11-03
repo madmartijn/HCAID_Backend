@@ -1,1 +1,1 @@
-pip install flask shap flask_cors
+!pip install flask shap flask_cors
