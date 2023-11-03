@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 absl-py==1.4.0
 altair @ file:///home/conda/feedstock_root/build_artifacts/altair_1693422388579/work
 anyio @ file:///home/conda/feedstock_root/build_artifacts/anyio_1688651106312/work/dist
