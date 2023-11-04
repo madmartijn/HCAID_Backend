@@ -8,20 +8,38 @@ app = Flask(__name__)
 CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-model = joblib.load('Good_model.joblib')
+good_model = joblib.load('Good_model.joblib')
+bad_model = joblib.load('Bad_model.joblib')
 
-# Define a SHAP explainer for your model
-explainer = shap.Explainer(model)
+# Define a SHAP explainer for your good_model
+explainer = shap.Explainer(good_model)
 
-@app.route('/predict', methods=['POST'])
-def predict():
+@app.rout('/predict_bad', methods=['POST'])
+def predict_bad():
     try:
         # Get input data as JSON
         data = request.json
         features = data['features']
 
         # Make predictions
-        prediction = model.predict([features])
+        prediction = bad_model.predict([features])
+        
+        result = {"prediction": int(prediction[0])}
+        
+        return jsonify(result)
+
+    except Exception as e:
+        return jsonify({"error": str(e)})
+
+@app.route('/predict_good', methods=['POST'])
+def predict_good():
+    try:
+        # Get input data as JSON
+        data = request.json
+        features = data['features']
+
+        # Make predictions
+        prediction = good_model.predict([features])
 
         # Explain the prediction using SHAP
         shap_values = explainer.shap_values(np.array([features]))
