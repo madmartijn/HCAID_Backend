@@ -14,7 +14,7 @@ bad_model = joblib.load('Bad_model.joblib')
 # Define a SHAP explainer for your good_model
 explainer = shap.Explainer(good_model)
 
-@app.rout('/predict_bad', methods=['POST'])
+@app.route('/predict_bad', methods=['POST'])
 def predict_bad():
     try:
         # Get input data as JSON
